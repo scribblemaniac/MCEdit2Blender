@@ -30,6 +30,8 @@ class SchematicImporter(Operator, ImportHelper) :
         length = nbtfile["Length"].value
 
         bpy.data.scenes[0].render.engine = "CYCLES"
+        bpy.types.Object.blockId = bpy.props.IntProperty(name="Block ID", description="Stores the id of this object's block", default=0)
+        bpy.types.Object.blockMetadata = bpy.props.IntProperty(name="Block Metadata", description="Stores the metadata of this object's block", default=0)
         for index, dataValue in enumerate(nbtfile["Blocks"].value):
             if dataValue != 0:
                 Blocks.Blocks.draw(context, index % width - math.floor(width / 2), math.floor((index % (width * length)) / width) - math.floor(length / 2), math.floor(index / (width * length)), dataValue, nbtfile["Data"][index])

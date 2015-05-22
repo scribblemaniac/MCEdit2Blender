@@ -13,9 +13,8 @@ class Blocks() :
     #end getDisplayName
 
     # TODO Define deal with data values
-    #deprecated
     def getBlockTexturePath(textureName):
-        return os.path.realpath("./textures/blocks/" + textureName + ".png")
+        return bpy.path.abspath("//textures/blocks/" + textureName + ".png")
     #end getTexturePath
 
     #deprecated
