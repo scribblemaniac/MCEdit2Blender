@@ -10,3 +10,5 @@
 - Add particle support for blocks like torches and portals
 - Disable viewport mipmaps
 - Provide more options to the user for enabling/disabling features
+- Add a multiplied ambient occlusion to the environment shader to make it look more like minecraft
+- Build test schematic files
