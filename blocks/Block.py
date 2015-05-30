@@ -10,6 +10,7 @@ class Block:
         self._id = id
         self._metadata = metadata
         self._unlocalizedName = unlocalizedName
+        self._textureName = textureName
 
     def make(self):
         obj = self.makeObject()
@@ -42,6 +43,8 @@ class Block:
         bpy.ops.mesh.normals_make_consistent(inside=False)
         bpy.ops.object.editmode_toggle()
         bpy.context.scene.objects.active = activeObject
+        
+        return obj
     
     def applyMaterial(self, obj):
         try:
@@ -77,8 +80,8 @@ class Block:
             try:
                 tex = bpy.data.images[self._unlocalizedName]
             except KeyError:
-                tex = bpy.data.images.load(Blocks.getBlockTexturePath(args[0]))
-                tex.name = displayName
+                tex = bpy.data.images.load(Blocks.getBlockTexturePath(self._textureName))
+                tex.name = self._unlocalizedName
 
             #First Image Texture
             mat.node_tree.nodes.new(type="ShaderNodeTexImage")
