@@ -1,9 +1,10 @@
 import bpy
+from Block import Block
 
-class Block:
-    """A basic block with a single texture
+class Unknown(Block):
+    """A block that MCEdit2Blender can't handle
     
-    This class should be inherited by every other block class
+    Displays a simple cube with magenta sides
     """
 
     def __init__(self, id, metadata, unlocalizedName):
