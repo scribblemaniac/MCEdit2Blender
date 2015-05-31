@@ -6,12 +6,15 @@ from bpy_extras.io_utils import ImportHelper
 from bpy.types import Operator
 import nbt
 import importlib
-import Blocks
-importlib.reload(Blocks)
+import blockmanager
+importlib.reload(blockmanager)
+from blockmanager import BlockManager
  
 class SchematicImporter(Operator, ImportHelper) :
     bl_idname = "import.schematic"
     bl_label = "Import Schematic"
+    
+    _blockManager = BlockManager()
  
     def execute(self, context) :
         filename_ext = ".schematic"
@@ -33,7 +36,7 @@ class SchematicImporter(Operator, ImportHelper) :
         bpy.types.Object.blockMetadata = bpy.props.IntProperty(name="Block Metadata", description="Stores the metadata of this object's block", default=0)
         for index, dataValue in enumerate(nbtfile["Blocks"].value):
             if dataValue != 0:
-                Blocks.Blocks.draw(context, index % width - math.floor(width / 2), math.floor((index % (width * length)) / width) - math.floor(length / 2), math.floor(index / (width * length)), dataValue, nbtfile["Data"][index])
+                self._blockManager.draw(context, index % width - math.floor(width / 2), math.floor((index % (width * length)) / width) - math.floor(length / 2), math.floor(index / (width * length)), dataValue, nbtfile["Data"][index])
 
         return {"FINISHED"}
 
@@ -41,7 +44,6 @@ def import_images_button(self, context):
     self.layout.operator(SchematicImporter.bl_idname, text="MCEdit Schematic (.schematic)")
 
 def register():
-    Blocks.Blocks.test()
     bpy.utils.register_class(SchematicImporter)
     bpy.types.INFO_MT_file_import.append(import_images_button)
  

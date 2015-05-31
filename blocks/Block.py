@@ -1,4 +1,5 @@
 import bpy
+import mathutils
 
 class Block:
     """A basic block with a single texture
@@ -6,24 +7,19 @@ class Block:
     This class should be inherited by every other block class
     """
 
-    def __init__(self, id, metadata, unlocalizedName, textureName):
+    def __init__(self, id, unlocalizedName, textureName):
         self._id = id
-        self._metadata = metadata
         self._unlocalizedName = unlocalizedName
         self._textureName = textureName
-
-    def make(self):
-        obj = self.makeObject()
-        self.applyMaterial(obj)
     
-    def makeObject(self):
-        """
-        py:function:: makeObject(self)
-        
-        Make a new block and returns its object.
-        
-        Return type: <class 'bpy_types.Object'>
-        """
+    def getBlockTexturePath(self, textureName):
+        return bpy.path.abspath("//textures/blocks/" + textureName + ".png")
+
+    def make(self, x, y, z, metadata):
+        obj = self.makeObject(x, y, z, metadata)
+        self.applyMaterial(obj, metadata)
+    
+    def makeObject(self, x, y, z, metadata):
         mesh = bpy.data.meshes.new(name="Block")
         mesh.from_pydata([[-0.5,-0.5,-0.5],[0.5,-0.5,-0.5],[-0.5,0.5,-0.5],[0.5,0.5,-0.5],[-0.5,-0.5,0.5],[0.5,-0.5,0.5],[-0.5,0.5,0.5],[0.5,0.5,0.5]],[],[[0,1,3,2],[4,5,7,6],[0,1,5,4],[0,2,6,4],[2,3,7,6],[1,3,7,5]])
         mesh.update()
@@ -33,7 +29,7 @@ class Block:
         obj.location.y = y + 0.5
         obj.location.z = z + 0.5
         obj.blockId = self._id
-        obj.blockMetadata = self._metadata
+        obj.blockMetadata = metadata
         bpy.context.scene.objects.link(obj)
 
         activeObject = bpy.context.scene.objects.active
@@ -46,7 +42,7 @@ class Block:
         
         return obj
     
-    def applyMaterial(self, obj):
+    def applyMaterial(self, obj, metadata):
         try:
             mat = bpy.data.materials[self._unlocalizedName]
         except KeyError:
@@ -80,7 +76,7 @@ class Block:
             try:
                 tex = bpy.data.images[self._unlocalizedName]
             except KeyError:
-                tex = bpy.data.images.load(Blocks.getBlockTexturePath(self._textureName))
+                tex = bpy.data.images.load(self.getBlockTexturePath(self._textureName))
                 tex.name = self._unlocalizedName
 
             #First Image Texture
