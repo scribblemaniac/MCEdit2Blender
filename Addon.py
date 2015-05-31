@@ -21,7 +21,6 @@ class SchematicImporter(Operator, ImportHelper) :
         if self.filepath.split('\\')[-1].split('.')[1].lower() != 'schematic':
             print ("  Selected file = ", self.filepath)
             raise IOError("The selected input file is not a *.schematic file")
-        #end if
 
         nbtfile = nbt.nbt.NBTFile(self.filepath,'rb')
 
@@ -35,30 +34,20 @@ class SchematicImporter(Operator, ImportHelper) :
         for index, dataValue in enumerate(nbtfile["Blocks"].value):
             if dataValue != 0:
                 Blocks.Blocks.draw(context, index % width - math.floor(width / 2), math.floor((index % (width * length)) / width) - math.floor(length / 2), math.floor(index / (width * length)), dataValue, nbtfile["Data"][index])
-            #end if
-        #end for
 
         return {"FINISHED"}
-    #end invoke
-#end SchematicImporter
-
-# -----------------------------------------------------------------------------
-# Register
 
 def import_images_button(self, context):
     self.layout.operator(SchematicImporter.bl_idname, text="MCEdit Schematic (.schematic)")
-#end import_images_button
 
-def register() :
+def register():
+    Blocks.Blocks.test()
     bpy.utils.register_class(SchematicImporter)
     bpy.types.INFO_MT_file_import.append(import_images_button)
-#end register
  
-def unregister() :
+def unregister():
     bpy.utils.unregister_class(SchematicImporter)
     bpy.types.INFO_MT_mesh_add.remove(import_images_button)
-#end unregister
  
-if __name__ == "__main__" :
+if __name__ == "__main__":
     register()
-#end if
