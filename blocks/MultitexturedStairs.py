@@ -59,3 +59,13 @@ class Stairs(Multitextured, Stairs):
                 else:
                     mat.node_tree.links.new(mat.node_tree.nodes["Texture Coordinate"].outputs[0], mat.node_tree.nodes["Image Texture"].inputs[0])
                     mat.node_tree.nodes["Texture Coordinate"].location = [-200, 0]
+            
+            obj.data.materials.append(mat)
+        
+        if metadata & 0x4:
+            materialIndexMap = [5, 4, 2, 0, 3, 0, 3, 1]
+        else:
+            materialIndexMap = [5, 4, 2, 1, 3, 1, 3, 0]
+        
+        for polygonIndex, materialIndex in enumerate(materialIndexMap):
+            obj.data.polygons[polygonIndex].material_index = materialIndex
