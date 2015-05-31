@@ -1,1 +1,1 @@
-__all__ = ["Block", "Unknown", "Multitextured"]
+__all__ = ["Block", "Unknown", "Multitextured", "DataValues", "Stairs", "MultitexturedStairs"]
