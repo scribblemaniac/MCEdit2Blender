@@ -1,19 +1,23 @@
 import bpy
+import mathutils
 from Block import Block
 
 class Slab(Block):
     """Slab block with a single texture"""
     
-    def __init__(self, id, metadata, unlocalizedName, textureName):
-        self._id = id
-        self._metadata = metadata
-        if self._metadata & 8:
-            self._unlocalizedName = unlocalizedName + " High"
+    def make(self, x, y, z, metadata):
+        tempUnlocalizedName = self._unlocalizedName
+        if metadata & 8:
+            self._unlocalizedName += " High"
         else:
-            self._unlocalizedName = unlocalizedName + " Low"
-        self._textureName = textureName
+            self._unlocalizedName += " Low"
+        
+        obj = self.makeObject(x, y, z, metadata)
+        self.applyMaterial(obj, metadata)
+        
+        self._unlocalizedName = tempUnlocalizedName
     
-    def makeObject(self):
+    def makeObject(self, x, y, z, metadata):
         """
         py:function:: makeObject(self)
         
@@ -28,8 +32,8 @@ class Slab(Block):
         obj = bpy.data.objects.new("Block", mesh)
         obj.location.x = x + 0.5
         obj.location.y = y + 0.5
-        obj.location.z = z + 0.25 + 0.5 * (self._metadata >> 3 & 1)
-        context.scene.objects.link(obj)
+        obj.location.z = z + 0.25 + 0.5 * (metadata >> 3 & 1)
+        bpy.context.scene.objects.link(obj)
         
         bpy.context.scene.objects.active = obj
         bpy.ops.object.mode_set(mode='EDIT')
@@ -39,7 +43,7 @@ class Slab(Block):
         
         return obj
     
-    def applyMaterial(self, obj):
+    def applyMaterial(self, obj, metadata):
         try:
             mat = bpy.data.materials[self._unlocalizedName]
         except KeyError:
@@ -73,7 +77,7 @@ class Slab(Block):
             try:
                 tex = bpy.data.images[self._unlocalizedName]
             except KeyError:
-                tex = bpy.data.images.load(Blocks.getBlockTexturePath(self._textureName))
+                tex = bpy.data.images.load(self.getBlockTexturePath(self._textureName))
                 tex.name = self._unlocalizedName
             
             #First Image Texture
@@ -103,7 +107,7 @@ class Slab(Block):
             mat.node_tree.nodes["Mapping"].location = [-400, 0]
             mat.node_tree.nodes["Mapping"].scale[1] = -1.0
             mat.node_tree.nodes["Mapping"].scale[2] = 0.5
-            mat.node_tree.nodes["Mapping"].translation.z = 0.5 * (self._metadata >> 3 & 1)
+            mat.node_tree.nodes["Mapping"].translation.z = 0.5 * (metadata >> 3 & 1)
             mat.node_tree.links.new(mat.node_tree.nodes["Mapping"].outputs[0], mat.node_tree.nodes["Image Texture"].inputs[0])
             
             #Second Mapping

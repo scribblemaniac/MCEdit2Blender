@@ -1,20 +1,21 @@
 import bpy
+import mathutils
 from Multitextured import Multitextured
 from Stairs import Stairs
 
-class Stairs(Multitextured, Stairs):
+class MultitexturedStairs(Multitextured, Stairs):
     """Stair block with a single texture"""
 
-    def __init__(self, id, metadata, unlocalizedName, textureBottom="", textureTop="", textureFront="", textureLeft="", textureBack="", textureRight=""):
+    def __init__(self, id, unlocalizedName, textureBottom="", textureTop="", textureFront="", textureLeft="", textureBack="", textureRight=""):
         """MultitexturedStairs constructor
         
         See blocks.Multitextured.Multitextured.__init__ for more details on the shorthand notation for this constructor
         """
-        Multitextured.__init__(self, id, metadata, unlocalizedName, textureBottom, textureTop, textureFront, textureLeft, textureBack, textureRight)
+        Multitextured.__init__(self, id, unlocalizedName, textureBottom, textureTop, textureFront, textureLeft, textureBack, textureRight)
     
-    def make(self):
-        obj = Stairs.makeObject(self)
-        self.applyMaterial(obj)
+    def make(self, x, y, z, metadata):
+        obj = Stairs.makeObject(self, x, y, z, metadata)
+        self.applyMaterial(obj, metadata)
     
     def applyMaterial(self, obj):
         sideMapping = ["Bottom", "Top", "Front", "Left", "Back", "Right"]
@@ -30,7 +31,7 @@ class Stairs(Multitextured, Stairs):
                 try:
                     tex = bpy.data.images[self._unlocalizedname + " " + sideName]
                 except KeyError:
-                    tex = bpy.data.images.load(Blocks.getBlockTexturePath(self._textures[index]))
+                    tex = bpy.data.images.load(self.getBlockTexturePath(self._textures[index]))
                     tex.name = self._unlocalizedName + " " + sideName
                 mat.node_tree.nodes.new(type="ShaderNodeTexImage")
                 mat.node_tree.nodes["Image Texture"].location = [0, 0]

@@ -36,7 +36,7 @@ class SchematicImporter(Operator, ImportHelper) :
         bpy.types.Object.blockMetadata = bpy.props.IntProperty(name="Block Metadata", description="Stores the metadata of this object's block", default=0)
         for index, dataValue in enumerate(nbtfile["Blocks"].value):
             if dataValue != 0:
-                self._blockManager.draw(context, index % width - math.floor(width / 2), math.floor((index % (width * length)) / width) - math.floor(length / 2), math.floor(index / (width * length)), dataValue, nbtfile["Data"][index])
+                self._blockManager.draw(context, index % width - math.floor(width / 2), length - math.floor((index % (width * length)) / width) - math.ceil(length / 2) - 1, math.floor(index / (width * length)), dataValue, nbtfile["Data"][index])
 
         return {"FINISHED"}
 

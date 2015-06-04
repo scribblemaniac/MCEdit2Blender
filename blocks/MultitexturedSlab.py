@@ -1,25 +1,31 @@
 import bpy
+import mathutils
 from Multitextured import Multitextured
 from Slab import Slab
 
 class MultitexturedSlab(Multitextured, Slab):
-    """Slab block with a single texture"""
+    """Slab block with a multiple textures"""
     
-    def __init__(self, id, metadata, unlocalizedName, textureBottom="", textureTop="", textureFront="", textureLeft="", textureBack="", textureRight=""):
+    def __init__(self, id, unlocalizedName, textureBottom="", textureTop="", textureFront="", textureLeft="", textureBack="", textureRight=""):
         """MultitexturedSlab constructor
         
         See blocks.Multitextured.Multitextured.__init__ for more details on the shorthand notation for this constructor
         """
-        Multitextured.__init__(self, id, metadata, unlocalizedName, textureBottom, textureTop, textureFront, textureLeft, textureBack, textureRight)
-        if self._metadata & 8:
+        Multitextured.__init__(self, id, unlocalizedName, textureBottom, textureTop, textureFront, textureLeft, textureBack, textureRight)
+
+    def make(self, x, y, z, metadata):
+        tempUnlocalizedName = self._unlocalizedName
+        if metadata & 8:
             self._unlocalizedName += " High"
         else:
             self._unlocalizedName += " Low"
-    def make(self):
-        obj = Slab.makeObject(self)
-        self.applyMaterial(obj)
+        
+        obj = Slab.makeObject(self, x, y, z, metadata)
+        self.applyMaterial(obj, metadata)
+        
+        self._unlocalizedName = tempUnlocalizedName
     
-    def applyMaterial(self, obj):
+    def applyMaterial(self, obj, metadata):
         sideMapping = ["Bottom", "Top", "Front", "Left", "Back", "Right"]
         for index, sideName in enumerate(sideMapping):
             try:
@@ -33,7 +39,7 @@ class MultitexturedSlab(Multitextured, Slab):
                 try:
                     tex = bpy.data.images[self._unlocalizedName + " " + sideName]
                 except KeyError:
-                    tex = bpy.data.images.load(Blocks.getBlockTexturePath(self._textures[index]))
+                    tex = bpy.data.images.load(self.getBlockTexturePath(self._textureNames[index]))
                     tex.name = self._unlocalizedName + " " + sideName
                 mat.node_tree.nodes.new(type="ShaderNodeTexImage")
                 mat.node_tree.nodes["Image Texture"].location = [0, 0]
@@ -47,7 +53,7 @@ class MultitexturedSlab(Multitextured, Slab):
                 if index < 2:
                     mat.node_tree.nodes.new(type="ShaderNodeMapping")
                     mat.node_tree.nodes["Mapping"].location = [-400, 0]
-                    mat.node_tree.nodes["Mapping"].rotation = mathutils.Euler((0.0, 0.0, -1.5707963705062866), 'XYZ')
+                    mat.node_tree.nodes["Mapping"].rotation = mathutils.Euler((0.0, 0.0, 1.5707963705062866), 'XYZ')
                     mat.node_tree.nodes["Mapping"].scale[0] = -1.0
                     mat.node_tree.links.new(mat.node_tree.nodes["Mapping"].outputs[0], mat.node_tree.nodes["Image Texture"].inputs[0])
                     mat.node_tree.nodes["Texture Coordinate"].location = [-600, 0]
@@ -55,15 +61,13 @@ class MultitexturedSlab(Multitextured, Slab):
                 else:
                     mat.node_tree.nodes.new(type="ShaderNodeMapping")
                     mat.node_tree.nodes["Mapping"].location = [-400, 0]
-                    if index == 3 or index == 5:
-                        mat.node_tree.nodes["Mapping"].scale[1] = -1.0
                     mat.node_tree.nodes["Mapping"].scale[2] = 0.5
-                    mat.node_tree.nodes["Mapping"].translation.z = 0.5 * (self._metadata >> 3 & 1)
+                    mat.node_tree.nodes["Mapping"].translation.z = 0.5 * (metadata >> 3 & 1)
                     mat.node_tree.links.new(mat.node_tree.nodes["Mapping"].outputs[0], mat.node_tree.nodes["Image Texture"].inputs[0])
                     mat.node_tree.nodes["Texture Coordinate"].location = [-600, 0]
                     mat.node_tree.links.new(mat.node_tree.nodes["Texture Coordinate"].outputs[0], mat.node_tree.nodes["Mapping"].inputs[0])
 
             obj.data.materials.append(mat)
 
-        for i in enumerate(range(0,6)):
+        for i in range(0,6):
             obj.data.polygons[i].material_index = i
