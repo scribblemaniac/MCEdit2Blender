@@ -40,6 +40,9 @@ class Block:
         bpy.ops.object.editmode_toggle()
         bpy.context.scene.objects.active = activeObject
         
+        obj.data.uv_textures.new();
+        obj.data.uv_layers[0].data.foreach_set("uv", [0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1])
+        
         return obj
     
     def applyMaterial(self, obj, metadata):
@@ -48,10 +51,11 @@ class Block:
         except KeyError:
             mat = bpy.data.materials.new(self._unlocalizedName)
             mat.use_nodes = True
-            mat.node_tree.links.remove(mat.node_tree.links[0])
+            #mat.node_tree.links.remove(mat.node_tree.links[0])
             mat.node_tree.nodes["Material Output"].location = [600, 0]
 
             #Mix Shader
+            """
             mat.node_tree.nodes.new(type="ShaderNodeMixShader")
             mat.node_tree.nodes["Mix Shader"].location = [400,0]
             mat.node_tree.links.new(mat.node_tree.nodes["Mix Shader"].outputs[0], mat.node_tree.nodes["Material Output"].inputs[0])
@@ -71,6 +75,7 @@ class Block:
             mat.node_tree.nodes.new(type="ShaderNodeBsdfDiffuse")
             mat.node_tree.nodes["Diffuse BSDF.001"].location = [200,-150]
             mat.node_tree.links.new(mat.node_tree.nodes["Diffuse BSDF.001"].outputs[0], mat.node_tree.nodes["Mix Shader"].inputs[2])
+            """
 
             #Initialize Texture
             try:
@@ -88,6 +93,7 @@ class Block:
             mat.node_tree.links.new(mat.node_tree.nodes["Image Texture"].outputs[0], mat.node_tree.nodes["Diffuse BSDF"].inputs[0])
 
             #Second Image Texture
+            """
             mat.node_tree.nodes.new(type="ShaderNodeTexImage")
             mat.node_tree.nodes["Image Texture.001"].location = [0, -250]
             mat.node_tree.nodes["Image Texture.001"].image = tex
@@ -120,5 +126,12 @@ class Block:
             mat.node_tree.links.new(mat.node_tree.nodes["Texture Coordinate"].outputs[0], mat.node_tree.nodes["Mapping"].inputs[0])
             mat.node_tree.links.new(mat.node_tree.nodes["Texture Coordinate"].outputs[0], mat.node_tree.nodes["Mapping.001"].inputs[0])
             mat.node_tree.links.new(mat.node_tree.nodes["Texture Coordinate"].outputs[1], mat.node_tree.nodes["Separate XYZ"].inputs[0])
-
+            """
+            
+            #UV Map
+            mat.node_tree.nodes.new(type="ShaderNodeUVMap")
+            mat.node_tree.nodes["UV Map"].location = [-300, 0]
+            mat.node_tree.nodes["UV Map"].uv_map = "UVMap"
+            mat.node_tree.links.new(mat.node_tree.nodes["UV Map"].outputs[0], mat.node_tree.nodes["Image Texture"].inputs[0])
+        
         obj.data.materials.append(mat)
