@@ -52,6 +52,7 @@ class Block:
             mat = bpy.data.materials[self._unlocalizedName]
         except KeyError:
             mat = bpy.data.materials.new(self._unlocalizedName)
+            mat.preview_render_type = "CUBE"
             mat.use_nodes = True
             mat.node_tree.nodes["Material Output"].location = [300, 0]
             mat.node_tree.nodes["Diffuse BSDF"].location = [100, 0]
@@ -68,7 +69,7 @@ class Block:
             mat.node_tree.nodes["Image Texture"].location = [-100, 75]
             mat.node_tree.nodes["Image Texture"].image = tex
             mat.node_tree.nodes["Image Texture"].interpolation = "Closest"
-            mat.node_tree.nodes["Image Texture"].projection = "BOX"
+            mat.node_tree.nodes["Image Texture"].projection = "FLAT"
             mat.node_tree.links.new(mat.node_tree.nodes["Image Texture"].outputs[0], mat.node_tree.nodes["Diffuse BSDF"].inputs[0])
             
             #UV Map

@@ -1,5 +1,4 @@
 - Fix render issue with connected stairs
-- Add UV Maps for better previews and less cluttered material nodes
 - Split the Blocks file into a bunch of smaller files with a more object-oriented approach
 - Add documentation/improve readme
 - Fix Large Mushroom blocks
@@ -8,9 +7,8 @@
 - Add support for Blender render
 - Add easier support for texture packs
 - Add particle support for blocks like torches and portals
-- Disable viewport mipmaps
 - Provide more options to the user for enabling/disabling features
 - Add a multiplied ambient occlusion to the environment shader to make it look more like minecraft
 - Build test schematic files
-- Fix log sides
 - Finish quartz block
+- Set viewport color for materials
