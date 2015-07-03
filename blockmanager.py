@@ -36,6 +36,9 @@ from blocks.Transparent import Transparent
 import blocks.Farmland
 importlib.reload(blocks.Farmland)
 from blocks.Farmland import Farmland
+import blocks.Plant
+importlib.reload(blocks.Plant)
+from blocks.Plant import Plant
 
 class BlockManager:
     _BlockDict = {}
@@ -54,8 +57,9 @@ class BlockManager:
     def __init__(self):
         self.addBlock(1, Block(1, "Stone", "stone"))
         self.addBlock(3, Block(3, "Dirt", "dirt"))
-        self.addBlock(4, Block(4, "Cobblestone", "stonebrick"))
+        self.addBlock(4, Block(4, "Cobblestone", "cobblestone"))
         self.addBlock(5, DataValues(5, [Block(5, "Oak Wood Planks", "planks_oak"), Block(5, "Spruce Wood Planks", "planks_spruce"), Block(5, "Birch Wood Planks", "planks_birch"), Block(5, "Jungle Wood Planks", "planks_jungle")]))
+        self.addBlock(6, DataValues(6, [Plant(6, "Oak Sapling", "sapling_oak"), Plant(6, "Spruce Sapling", "sapling_spruce"), Plant(6, "Birch Sapling", "sapling_birch"), Plant(6, "Jungle Sapling", "sapling_jungle")]*4));
         self.addBlock(7, Block(7, "Block", "bedrock"))
         self.addBlock(12, Block(12, "Sand", "sand"))
         self.addBlock(13, Block(13, "Gravel", "gravel"))
@@ -72,8 +76,8 @@ class BlockManager:
         self.addBlock(35, DataValues(35, [Block(35, "White Wool", "cloth_0"), Block(35, "Orange Wool", "cloth_1"), Block(35, "Magenta Wool", "cloth_2"), Block(35, "Light Blue Wool", "cloth_3"), Block(35, "Yellow Wool", "cloth_4"), Block(35, "Lime Wool", "cloth_5"), Block(35, "Pink Wool", "cloth_6"), Block(35, "Gray Wool", "cloth_7"), Block(35, "Light Gray Wool", "cloth_8"), Block(35, "Cyan Wool", "cloth_9"), Block(35, "Purple Wool", "cloth_10"), Block(35, "Blue Wool", "cloth_11"), Block(35, "Brown Wool", "cloth_12"), Block(35, "Green Wool", "cloth_13"), Block(35, "Red Wool", "cloth_14"), Block(35, "Black Wool", "cloth_15")]))
         self.addBlock(41, Block(41, "Gold Block", "blockGold"))
         self.addBlock(42, Block(42, "Iron Block", "blockIron"))
-        self.addBlock(43, DataValues(43, [Multitextured(43, "Double Stone Slab", textureTop="stoneslab_top", textureFront="stoneslab_side"), Multitextured(43, "Double Sandstone Slab", "sandstone_bottom", "sandstone_top", "sandstone_side"), Block(43, "Double Wooden Slab (Stone)", "planks_oak"), Block(43, "Double Cobblestone Slab", "stonebrick"), Block(43, "Double Brick Slab", "brick"), Block(43, "Double Stone Brick Slab", "stonebricksmooth"), Block(43, "Double Nether Brick Slab", "netherBrick"), Multitextured(43, "Double Quartz Slab", "quartzblock_bottom", "quartzblock_top", "quartzblock_side"), Block(43, "Double Smooth Stone Slab", "stoneslab_top"), Block(43, "Double Smooth Sandstone Slab", "sandstone_top")]))
-        self.addBlock(44, DataValues(44, [MultitexturedSlab(44, "Stone Slab", textureTop="stoneslab_top", textureFront="stoneslab_side"), MultitexturedSlab(44, "Sandstone Slab", "sandstone_bottom", "sandstone_top", "sandstone_side"), Slab(44, "Wooden Slab (Stone)", "planks_oak"), Slab(44, "Cobblestone Slab", "stonebrick"), Slab(44, "Brick Slab", "brick"), Slab(44, "Stone Brick Slab", "stonebricksmooth"), Slab(44, "Nether Brick Slab", "netherBrick"), MultitexturedSlab(44, "Quartz Slab", "quartzblock_bottom", "quartzblock_top", "quartzblock_side")]*2))
+        self.addBlock(43, DataValues(43, [Multitextured(43, "Double Stone Slab", textureTop="stoneslab_top", textureFront="stoneslab_side"), Multitextured(43, "Double Sandstone Slab", "sandstone_bottom", "sandstone_top", "sandstone_side"), Block(43, "Double Wooden Slab (Stone)", "planks_oak"), Block(43, "Double Cobblestone Slab", "cobblestone"), Block(43, "Double Brick Slab", "brick"), Block(43, "Double Stone Brick Slab", "stonebrick"), Block(43, "Double Nether Brick Slab", "netherBrick"), Multitextured(43, "Double Quartz Slab", "quartzblock_bottom", "quartzblock_top", "quartzblock_side"), Block(43, "Double Smooth Stone Slab", "stoneslab_top"), Block(43, "Double Smooth Sandstone Slab", "sandstone_top")]))
+        self.addBlock(44, DataValues(44, [MultitexturedSlab(44, "Stone Slab", textureTop="stoneslab_top", textureFront="stoneslab_side"), MultitexturedSlab(44, "Sandstone Slab", "sandstone_bottom", "sandstone_top", "sandstone_side"), Slab(44, "Wooden Slab (Stone)", "planks_oak"), Slab(44, "Cobblestone Slab", "cobblestone"), Slab(44, "Brick Slab", "brick"), Slab(44, "Stone Brick Slab", "stonebrick"), Slab(44, "Nether Brick Slab", "netherBrick"), MultitexturedSlab(44, "Quartz Slab", "quartzblock_bottom", "quartzblock_top", "quartzblock_side")]*2))
         self.addBlock(45, Block(45, "Brick Block", "brick"))
         self.addBlock(46, Multitextured(46, "TNT", "tnt_bottom", "tnt_top", "tnt_side"))
         self.addBlock(47, Multitextured(47, "Bookshelf", textureTop="planks_oak", textureFront="bookshelf"))
@@ -84,7 +88,7 @@ class BlockManager:
         self.addBlock(57, Block(57, "Diamond Block", "blockDiamond"))
         self.addBlock(58, Multitextured(58, "Crafting Table", "planks_oak", "workbench_top", "workbench_front", "workbench_front", "workbench_side", "workbench_side"))
         self.addBlock(60, DataValues(60, [Farmland(60, "Dry Farmland", "dirt", "farmland_dry", "dirt"), Farmland(60, "Wet Farmland", "dirt", "farmland_wet", "dirt"), Farmland(60, "Wet Farmland", "dirt", "farmland_wet", "dirt"), Farmland(60, "Wet Farmland", "dirt", "farmland_Wet", "dirt"), Farmland(60, "Wet Farmland", "dirt", "farmland_wet", "dirt"), Farmland(60, "Wet Farmland", "dirt", "farmland_wet", "dirt"), Farmland(60, "Wet Farmland", "dirt", "farmland_wet", "dirt"), Farmland(60, "Wet Farmland", "dirt", "farmland_wet", "dirt")]))
-        self.addBlock(67, Stairs(67, "Cobblestone Stairs", "stonebrick"))
+        self.addBlock(67, Stairs(67, "Cobblestone Stairs", "cobblestone"))
         self.addBlock(73, Block(73, "Redstone Ore", "oreRedstone"))
         self.addBlock(74, Block(74, "Glowing Redstone Ore", "oreRedstone"))
         self.addBlock(79, Block(79, "Ice", "ice"))
@@ -98,10 +102,10 @@ class BlockManager:
         self.addBlock(91, DataValues(86, [Multitextured(86, "Jack O'Lantern (0)", "pumpkin_top", "pumpkin_top", "pumpkin_side", "pumpkin_side", "pumpkin_jack", "pumpkin_side"), Multitextured(86, "Jack O'Lantern (1)", "pumpkin_top", "pumpkin_top", "pumpkin_side", "pumpkin_jack", "pumpkin_side", "pumpkin_side"), Multitextured(86, "Jack O'Lantern (2)", "pumpkin_top", "pumpkin_top", "pumpkin_jack", "pumpkin_side", "pumpkin_side", "pumpkin_side"), Multitextured(86, "Jack O'Lantern (3)", "pumpkin_top", "pumpkin_top", "pumpkin_side", "pumpkin_side", "pumpkin_side", "pumpkin_jack"), Multitextured(86, "Jack O'Lantern (4)", textureTop="pumpkin_top", textureFront="texture_side")]))
         self.addBlock(95, DataValues(95, [Transparent(95, "White Stained Glass", "glass_white"), Transparent(95, "Orange Stained Glass", "glass_orange"), Transparent(95, "Magenta Stained Glass", "glass_magenta"), Transparent(95, "Light Blue Stained Glass", "glass_light_blue"), Transparent(95, "Yellow Stained Glass", "glass_yellow"), Transparent(95, "Lime Stained Glass", "glass_lime"), Transparent(95, "Pink Stained Glass", "glass_pink"), Transparent(95, "Gray Stained Glass", "glass_gray"), Transparent(95, "Light Gray Stained Glass", "glass_silver"), Transparent(95, "Cyan Stained Glass", "glass_cyan"), Transparent(95, "Purple Stained Glass", "glass_purple"), Transparent(95, "Blue Stained Glass", "glass_blue"), Transparent(95, "Brown Stained Glass", "glass_brown"), Transparent(95, "Green Stained Glass", "glass_green"), Transparent(95, "Red Stained Glass", "glass_red"), Transparent(95, "Black Stained Glass", "glass_black")]))
         self.addBlock(97, Block(97, "Silverfish Stone", "stone"))
-        self.addBlock(98, Block(98, "Stone Brick", "stonebricksmooth"))
+        self.addBlock(98, Block(98, "Stone Brick", "stonebrick"))
         self.addBlock(103, Multitextured(103, "Melon", textureTop="melon_top", textureFront="melon_side"))
         self.addBlock(108, Stairs(108, "Brick Stairs", "brick"))
-        self.addBlock(109, Stairs(109, "Stone Brick Stairs", "stonebricksmooth"))
+        self.addBlock(109, Stairs(109, "Stone Brick Stairs", "stonebrick"))
         self.addBlock(110, Multitextured(110, "Mycelium", "dirt", "mycel_top", "mycel_side"))
         self.addBlock(112, Block(112, "Nether Brick", "netherBrick"))
         self.addBlock(114, Stairs(114, "Nether Brick Stairs", "netherBrick"))
