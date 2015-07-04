@@ -67,7 +67,7 @@ class BlockManager:
         self.addBlock(15, Block(15, "Iron Ore", "oreIron"))
         self.addBlock(16, Block(16, "Coal Ore", "oreCoal"))
         self.addBlock(17, DataValues(17, [Log(17, "Oak Log", "tree_top", "tree_side"), Log(17, "Spruce Wood", "tree_top", "tree_spruce"), None, None ]*4))
-        self.addBlock(19, Block(19, "Sponge", "sponge"))
+        self.addBlock(19, DataValues(19, [Block(19, "Sponge", "sponge"), Block(19, "Wet Sponge", "sponge_wet")]))
         self.addBlock(20, Transparent(20, "Glass", "glass"))
         self.addBlock(21, Block(21, "Lapis Lazuli Ore", "oreLapis"))
         self.addBlock(22, Block(22, "Lapis Lazuli Block", "blockLapis"))
