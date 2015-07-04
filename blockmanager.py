@@ -61,7 +61,7 @@ class BlockManager:
         self.addBlock(5, DataValues(5, [Block(5, "Oak Wood Planks", "planks_oak"), Block(5, "Spruce Wood Planks", "planks_spruce"), Block(5, "Birch Wood Planks", "planks_birch"), Block(5, "Jungle Wood Planks", "planks_jungle")]))
         self.addBlock(6, DataValues(6, [Plant(6, "Oak Sapling", "sapling_oak"), Plant(6, "Spruce Sapling", "sapling_spruce"), Plant(6, "Birch Sapling", "sapling_birch"), Plant(6, "Jungle Sapling", "sapling_jungle")]*4));
         self.addBlock(7, Block(7, "Block", "bedrock"))
-        self.addBlock(12, Block(12, "Sand", "sand"))
+        self.addBlock(12, DataValues(12, [Block(12, "Sand", "sand"), Block(12, "Red Sand", "red_sand")]))
         self.addBlock(13, Block(13, "Gravel", "gravel"))
         self.addBlock(14, Block(14, "Gold Ore", "oreGold"))
         self.addBlock(15, Block(15, "Iron Ore", "oreIron"))
