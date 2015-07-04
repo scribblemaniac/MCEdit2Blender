@@ -128,3 +128,4 @@ class BlockManager:
         self.addBlock(153, Block(153, "Nether Quartz Ore", "netherquartz"))
         self.addBlock(155, DataValues(155, [Multitextured(155, "Block of Quartz", "quartzblock_bottom", "quartzblock_top", "quartzblock_side"), Multitextured(155, "Chiseled Quartz Block", textureTop="quartzblock_chiseled_top", textureFront="quartzblock_chiseled")]))
         self.addBlock(156, MultitexturedStairs(156, "Quartz Stairs", "quartzblock_bottom", "quartzblock_top", "quartzblock_side"))
+        self.addBlock(174, Block(174, "Packed Ice", "ice_packed"))
