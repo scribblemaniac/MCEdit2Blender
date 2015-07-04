@@ -56,7 +56,7 @@ class BlockManager:
 
     def __init__(self):
         self.addBlock(1, Block(1, "Stone", "stone"))
-        self.addBlock(3, Block(3, "Dirt", "dirt"))
+        self.addBlock(3, DataValues(3, [Block(3, "Dirt", "dirt"), Block(3, "Coarse Dirt", "coarse_dirt"), Multitextured(3, "Podzol", "dirt", "dirt_podzol_top", "dirt_podzol_side")]))
         self.addBlock(4, Block(4, "Cobblestone", "cobblestone"))
         self.addBlock(5, DataValues(5, [Block(5, "Oak Wood Planks", "planks_oak"), Block(5, "Spruce Wood Planks", "planks_spruce"), Block(5, "Birch Wood Planks", "planks_birch"), Block(5, "Jungle Wood Planks", "planks_jungle")]))
         self.addBlock(6, DataValues(6, [Plant(6, "Oak Sapling", "sapling_oak"), Plant(6, "Spruce Sapling", "sapling_spruce"), Plant(6, "Birch Sapling", "sapling_birch"), Plant(6, "Jungle Sapling", "sapling_jungle")]*4));
