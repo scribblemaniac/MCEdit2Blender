@@ -129,3 +129,4 @@ class BlockManager:
         self.addBlock(155, DataValues(155, [Multitextured(155, "Block of Quartz", "quartzblock_bottom", "quartzblock_top", "quartzblock_side"), Multitextured(155, "Chiseled Quartz Block", textureTop="quartzblock_chiseled_top", textureFront="quartzblock_chiseled")]))
         self.addBlock(156, MultitexturedStairs(156, "Quartz Stairs", "quartzblock_bottom", "quartzblock_top", "quartzblock_side"))
         self.addBlock(174, Block(174, "Packed Ice", "ice_packed"))
+        self.addBlock(179, DataValues(179, [Multitextured(179, "Red Sandstone", "red_sandstone_bottom", "red_sandstone_top", "red_sandstone_normal"), Multitextured(179, "Chiseled Red Sandstone", textureTop="red_sandstone_top", textureFront="red_sandstone_carved"), Multitextured(179, "Smooth Red Sandstone", textureTop="red_sandstone_top", textureFront="red_sandstone_smooth")]))
