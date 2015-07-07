@@ -39,6 +39,9 @@ from blocks.Farmland import Farmland
 import blocks.Plant
 importlib.reload(blocks.Plant)
 from blocks.Plant import Plant
+import blocks.Cactus
+importlib.reload(blocks.Cactus)
+from blocks.Cactus import Cactus
 
 class BlockManager:
     _BlockDict = {}
@@ -96,6 +99,7 @@ class BlockManager:
         self.addBlock(74, Block(74, "Glowing Redstone Ore", "oreRedstone"))
         self.addBlock(79, Block(79, "Ice", "ice"))
         self.addBlock(80, Block(80, "Snow Block", "blockSnow"))
+        self.addBlock(81, Cactus(81, "Cactus", "cactus_bottom", "cactus_top", "cactus_side"))
         self.addBlock(82, Block(82, "Clay Block", "clay"))
         self.addBlock(84, Multitextured(84, "Jukebox", "musicBlock", "jukebox_top", "musicBlock"))
         self.addBlock(86, DataValues(86, [Multitextured(86, "Pumpkin (0)", "pumpkin_top", "pumpkin_top", "pumpkin_side", "pumpkin_side", "pumpkin_face", "pumpkin_side"), Multitextured(86, "Pumpkin (1)", "pumpkin_top", "pumpkin_top", "pumpkin_side", "pumpkin_face", "pumpkin_side", "pumpkin_side"), Multitextured(86, "Pumpkin (2)", "pumpkin_top", "pumpkin_top", "pumpkin_face", "pumpkin_side", "pumpkin_side", "pumpkin_side"), Multitextured(86, "Pumpkin (3)", "pumpkin_top", "pumpkin_top", "pumpkin_side", "pumpkin_side", "pumpkin_side", "pumpkin_face"), Multitextured(86, "Pumpkin (4)", textureTop="pumpkin_top", textureFront="texture_side")]))
