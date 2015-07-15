@@ -32,6 +32,8 @@ class SchematicImporter(Operator, ImportHelper) :
         length = nbtfile["Length"].value
 
         bpy.data.scenes[0].render.engine = "CYCLES"
+        bpy.data.scenes[0].render.fps = 20
+        bpy.data.scenes[0].render.fps_base = 1
         bpy.context.user_preferences.system.use_mipmaps = False
         bpy.types.Object.blockId = bpy.props.IntProperty(name="Block ID", description="Stores the id of this object's block", default=0)
         bpy.types.Object.blockMetadata = bpy.props.IntProperty(name="Block Metadata", description="Stores the metadata of this object's block", default=0)
