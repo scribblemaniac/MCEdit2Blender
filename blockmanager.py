@@ -42,6 +42,9 @@ from blocks.Plant import Plant
 import blocks.Cactus
 importlib.reload(blocks.Cactus)
 from blocks.Cactus import Cactus
+import blocks.Fire
+importlib.reload(blocks.Fire)
+from blocks.Fire import Fire
 
 class BlockManager:
     _BlockDict = {}
@@ -81,7 +84,7 @@ class BlockManager:
         self.addBlock(39, Plant(39, "Brown Mushroom", "mushroom_brown"))
         self.addBlock(40, Plant(40, "Red Mushroom", "mushroom_red"))
         self.addBlock(41, Block(41, "Gold Block", "blockGold"))
-        self.addBlock(42, Block(42, "Iron Block", "blockIron"))
+        self.addBlock(42, Block(42, "Iron Block", "iron_block"))
         self.addBlock(43, DataValues(43, [Multitextured(43, "Double Stone Slab", textureTop="stoneslab_top", textureFront="stoneslab_side"), Multitextured(43, "Double Sandstone Slab", "sandstone_bottom", "sandstone_top", "sandstone_side"), Block(43, "Double Wooden Slab (Stone)", "planks_oak"), Block(43, "Double Cobblestone Slab", "cobblestone"), Block(43, "Double Brick Slab", "brick"), Block(43, "Double Stone Brick Slab", "stonebrick"), Block(43, "Double Nether Brick Slab", "netherBrick"), Multitextured(43, "Double Quartz Slab", "quartzblock_bottom", "quartzblock_top", "quartzblock_side"), Block(43, "Double Smooth Stone Slab", "stoneslab_top"), Block(43, "Double Smooth Sandstone Slab", "sandstone_top")]))
         self.addBlock(44, DataValues(44, [MultitexturedSlab(44, "Stone Slab", textureTop="stoneslab_top", textureFront="stoneslab_side"), MultitexturedSlab(44, "Sandstone Slab", "sandstone_bottom", "sandstone_top", "sandstone_side"), Slab(44, "Wooden Slab (Stone)", "planks_oak"), Slab(44, "Cobblestone Slab", "cobblestone"), Slab(44, "Brick Slab", "brick"), Slab(44, "Stone Brick Slab", "stonebrick"), Slab(44, "Nether Brick Slab", "netherBrick"), MultitexturedSlab(44, "Quartz Slab", "quartzblock_bottom", "quartzblock_top", "quartzblock_side")]*2))
         self.addBlock(45, Block(45, "Brick Block", "brick"))
@@ -89,6 +92,7 @@ class BlockManager:
         self.addBlock(47, Multitextured(47, "Bookshelf", textureTop="planks_oak", textureFront="bookshelf"))
         self.addBlock(48, Block(48, "Moss Stone", "stoneMoss"))
         self.addBlock(49, Block(49, "Obsidian", "obsidian"))
+        self.addBlock(51, Fire(51, "Fire", "fire_layer_0"))
         self.addBlock(53, Stairs(53, "Oak Wood Stairs", "planks_oak"))
         self.addBlock(56, Block(56, "Diamond Ore", "oreDiamond"))
         self.addBlock(57, Block(57, "Diamond Block", "blockDiamond"))
@@ -103,7 +107,7 @@ class BlockManager:
         self.addBlock(82, Block(82, "Clay Block", "clay"))
         self.addBlock(84, Multitextured(84, "Jukebox", "musicBlock", "jukebox_top", "musicBlock"))
         self.addBlock(86, DataValues(86, [Multitextured(86, "Pumpkin (0)", "pumpkin_top", "pumpkin_top", "pumpkin_side", "pumpkin_side", "pumpkin_face", "pumpkin_side"), Multitextured(86, "Pumpkin (1)", "pumpkin_top", "pumpkin_top", "pumpkin_side", "pumpkin_face", "pumpkin_side", "pumpkin_side"), Multitextured(86, "Pumpkin (2)", "pumpkin_top", "pumpkin_top", "pumpkin_face", "pumpkin_side", "pumpkin_side", "pumpkin_side"), Multitextured(86, "Pumpkin (3)", "pumpkin_top", "pumpkin_top", "pumpkin_side", "pumpkin_side", "pumpkin_side", "pumpkin_face"), Multitextured(86, "Pumpkin (4)", textureTop="pumpkin_top", textureFront="texture_side")]))
-        self.addBlock(87, Block(87, "Netherrack", "hellrock"))
+        self.addBlock(87, Block(87, "Netherrack", "netherrack"))
         self.addBlock(88, Block(88, "Soul Sand", "hellsand"))
         self.addBlock(89, Block(89, "Glowstone Block", "lightgem"))
         self.addBlock(91, DataValues(86, [Multitextured(86, "Jack O'Lantern (0)", "pumpkin_top", "pumpkin_top", "pumpkin_side", "pumpkin_side", "pumpkin_jack", "pumpkin_side"), Multitextured(86, "Jack O'Lantern (1)", "pumpkin_top", "pumpkin_top", "pumpkin_side", "pumpkin_jack", "pumpkin_side", "pumpkin_side"), Multitextured(86, "Jack O'Lantern (2)", "pumpkin_top", "pumpkin_top", "pumpkin_jack", "pumpkin_side", "pumpkin_side", "pumpkin_side"), Multitextured(86, "Jack O'Lantern (3)", "pumpkin_top", "pumpkin_top", "pumpkin_side", "pumpkin_side", "pumpkin_side", "pumpkin_jack"), Multitextured(86, "Jack O'Lantern (4)", textureTop="pumpkin_top", textureFront="texture_side")]))
