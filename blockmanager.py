@@ -51,6 +51,9 @@ from blocks.Grass import Grass
 import blocks.Tallgrass
 importlib.reload(blocks.Tallgrass)
 from blocks.Tallgrass import Tallgrass
+import blocks.Leaves
+importlib.reload(blocks.Leaves)
+from blocks.Leaves import Leaves
 
 class BlockManager:
     _BlockDict = {}
@@ -80,6 +83,7 @@ class BlockManager:
         self.addBlock(15, Block(15, "Iron Ore", "oreIron"))
         self.addBlock(16, Block(16, "Coal Ore", "oreCoal"))
         self.addBlock(17, DataValues(17, [Log(17, "Oak Log", "tree_top", "tree_side"), Log(17, "Spruce Wood", "tree_top", "tree_spruce"), None, None ]*4))
+        self.addBlock(18, DataValues(18, [Leaves(18, "Oak Leaves", "leaves_oak"), Leaves(18, "Spruce Leaves", "leaves_spruce"), Leaves(18, "Birch Leaves", "leaves_birch"), Leaves(18, "Jungle Leaves", "leaves_jungle")]*4))
         self.addBlock(19, DataValues(19, [Block(19, "Sponge", "sponge"), Block(19, "Wet Sponge", "sponge_wet")]))
         self.addBlock(20, Transparent(20, "Glass", "glass"))
         self.addBlock(21, Block(21, "Lapis Lazuli Ore", "oreLapis"))
