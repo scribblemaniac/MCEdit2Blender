@@ -48,6 +48,9 @@ from blocks.Fire import Fire
 import blocks.Grass
 importlib.reload(blocks.Grass)
 from blocks.Grass import Grass
+import blocks.Tallgrass
+importlib.reload(blocks.Tallgrass)
+from blocks.Tallgrass import Tallgrass
 
 class BlockManager:
     _BlockDict = {}
@@ -84,6 +87,7 @@ class BlockManager:
         self.addBlock(24, DataValues(24, [Multitextured(24, "Sandstone", "sandstone_bottom", "sandstone_top", "sandstone_normal"), Multitextured(24, "Chiseled Sandstone", textureTop="sandstone_top", textureFront="sandstone_carved"), Multitextured(24, "Smooth Sandstone", textureTop="sandstone_top", textureFront="sandstone_smooth")]))
         self.addBlock(25, Block(25, "Note Block", "musicBlock"))
         self.addBlock(30, Plant(30, "Cobweb", "web"))
+        self.addBlock(31, DataValues(31, [Plant(31, "Shrub", "deadbush"), Tallgrass(31, "Tallgrass", "tallgrass"), Tallgrass(31, "Fern", "fern")]))
         self.addBlock(35, DataValues(35, [Block(35, "White Wool", "cloth_0"), Block(35, "Orange Wool", "cloth_1"), Block(35, "Magenta Wool", "cloth_2"), Block(35, "Light Blue Wool", "cloth_3"), Block(35, "Yellow Wool", "cloth_4"), Block(35, "Lime Wool", "cloth_5"), Block(35, "Pink Wool", "cloth_6"), Block(35, "Gray Wool", "cloth_7"), Block(35, "Light Gray Wool", "cloth_8"), Block(35, "Cyan Wool", "cloth_9"), Block(35, "Purple Wool", "cloth_10"), Block(35, "Blue Wool", "cloth_11"), Block(35, "Brown Wool", "cloth_12"), Block(35, "Green Wool", "cloth_13"), Block(35, "Red Wool", "cloth_14"), Block(35, "Black Wool", "cloth_15")]))
         self.addBlock(39, Plant(39, "Brown Mushroom", "mushroom_brown"))
         self.addBlock(40, Plant(40, "Red Mushroom", "mushroom_red"))
